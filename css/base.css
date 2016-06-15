@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+.nav_site{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #959595;
+    background: black;
+}
+.nav{
+    width: 90%;
+    height: 30px;
+    margin-left: 80%;
+    margin-top:5px;
+}
+.nav li{
+    float: left;
+    padding-left: 8px;
+}
+a{
+    font-size: 8px;
+    width: 99px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+}
+.nav_site .nav_four{
+    color: #999;
+}
+.nav_site img{
+    float: left;
+    width: 10%;
+    height: 30px;
+    margin-left: 10px;
+}
+.clearfix{
+    clear: both;
+}
+.demo{
+    width: 100%;
+    background: #DEDEDE;
+}
+.demo .d_title{
+    width: 100%;
+    background: white;
+    margin: 15px;
+    border: 1px solid #999999;
+}
+.demo .d_title .d_title_1{
+    margin: 10px;
+}
+.demo .d_title h4, h5,.ator{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.demo .d_title .ator{
+    font-size: 10px;
+}
+.demo .d_title li{
+    width: 99px;
+    height: 15px;
+}
+.demo .d_title li a{
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+}
+.d_img{
+    width: 100%;
+    border: 1px solid #ccc;
+    background: white;
+    margin: 15px;
+}
+.d_img dl{
+    margin-left:30px;
+}
+.d_img dl dd{
+    width: 120px;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+.d_img dl dd span{
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    margin: 5px;
+}
+.d_img dl dd img{
+    width: 110px;
+    padding: 5px;
+}
+
+ol{
+    padding-left:20px;
+    padding-top: 20px;
+}
+ol li{
+    font-size: 15px;
+    font-weight: bold;
+    margin: 5px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table tr th{
+    color: white;
+    background: #999;
+}
+table tr th td{
+    border: 1px solid #999;
+}
+table .total{
+    background: #ccc;
+}
+
+.d_title .h{
+    margin-left: 20px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    border-left: 3px solid red;
+}
+.d_title form div{
+    font-size: 14px;
+    margin: 15px 0;
+}
+.d_title form div .tips{
+    float: left;
+    text-align: right;
+    width: 35%;
+    font-size: 12px;
+    padding-right: 15px;
+}
+.d_title form div p{
+    margin-left:35%;
+    padding-left:15px;
+    font-size:12px;
+    color: #eeeeee;
+}
+textarea{
+    width:50%;
+    height:100px;
+}
+.submitButton{
+    width:100%;
+    height:40px;
+    border-radius: 10px;
+    background: #128fdc;
+    color: white;
+    font-size: 19px;
+    border:none;
+    cursor: pointer;
+}
+.submitButton:hover{
+    background: rosybrown;
+}
