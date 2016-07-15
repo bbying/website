@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>增删改查</title>
+    <style>
+        tr{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="新增" onclick="show()"/>
+<table border = "1" cellspacing = "0"  width=100% id="tableId">
+    <tr bgcolor="#7fffd4" >
+        <th>编号</th>
+        <th>标题</th>
+        <th>摘要</th>
+        <th>作者</th>
+        <th>类别</th>
+        <th>操作</th>
+    </tr>
+    <tr>
+        <td>01</td>
+        <td>测试</td>
+        <td>测试</td>
+        <td>表表</td>
+        <td>股票</td>
+        <td>
+            <input type="button" value="修改 " onclick="update(this.parentNode.parentNode)"/>
+            <input type="button" value="删除" onclick="del(this.parentNode.parentNode)"/>
+        </td>
+    </tr>
+</table>
+
+<div id="upload" align="center" style="display: none" >
+    <form action="#">
+        <table>
+            <tr>
+                <td>标题：</td>
+                <td><input type="text" id="title"/></td>
+                <td>摘要：</td>
+                <td><input type="text" id="digest"/></td>
+            </tr>
+
+            <tr>
+                <td>作者：</td>
+                <td><input type="text" id="author"/></td>
+                <td>类别：</td>
+                <td align="left">
+                    <select id="select">
+                        <option value="基金">基金</option>
+                        <option value="证券">证券</option>
+                        <option value="股票">股票</option>
+                    </select>
+
+                </td>
+            </tr>
+        </table>
+    </form>
+    <center>
+        <input type="button" value="保存" id="save" onclick="insertRow()"/>
+        <input type="reset" value="重置"/>
+    </center>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    //    点击新增弹出保存数据表
+    //    0:保存 1：修改  2：重置
+    var optionFlag = 0;
+    var updateRowIndex = -1;
+    var checkFlag = false; //默认不显示
+    function show(){
+        optionFlag = 0;
+        var upload = document.getElementById("upload");
+        if(!checkFlag){
+            upload.style.display = "block";
+        }else{
+            upload.style.display = "none";
+        }
+        checkFlag=!checkFlag;
+    }
+    //   点击保存将数据添加到表格中
+    function save(){
+        var table = document.getElementById("tableId");
+        var titleName = document.getElementById("title").value;
+        var digestName = document.getElementById("digest").value;
+        var authorName = document.getElementById("author").value;
+        var selectIndex = document.getElementById("select");
+        var option = selectIndex.options[selectIndex.selectedIndex]
+        var selectName = option.text;
+//        获取编号的内容
+        var numberid = table.rows.length;
+//        在表最后添加数据
+        var row = table.insertRow(numberid);
+
+        row.insertCell(0).innerHTML = numberid;
+        row.insertCell(1).innerHTML = titleName;
+        row.insertCell(2).innerHTML = digestName;
+        row.insertCell(3).innerHTML = authorName;
+        row.insertCell(4).innerHTML = selectName;
+        row.insertCell(5).innerHTML = '<input  type ="button" value="修改" onclick="update(this.parentNode.parentNode)"><input type="button" value="删除" onclick="del(this.parentNode.parentNode)"/>';
+
+        document.getElementById("title").value  = '';
+        document.getElementById("digest").value = '';
+        document.getElementById("author").value = '';
+        document.getElementById("select").options[0].selected = 'true';
+
+        var upload = document.getElementById("upload");
+        upload.style.display="none";
+    }
+
+    //    通过修改按钮对数据进行修改
+    function update(row){
+        updateRowIndex = row.rowIndex;
+        optionFlag = 1;
+        document.getElementById("title").value =row.cells[1].innerHTML;
+        document.getElementById("digest").value =row.cells[2].innerHTML;
+        document.getElementById("author").value =row.cells[3].innerHTML;
+        var selectText = row.cells[4].innerHTML;
+        var sel = document.getElementById("select");
+        var ops = sel.options;
+        for ( var i =0;i<ops.length;i++){
+            if(selectText == ops[i].text){
+                sel.options[i].selected = "true";
+            }
+        }
+        var upload = document.getElementById("upload");
+        upload.style.display="block";
+    }
+
+    //    修改后的保存
+    var tr;
+    function update_save(){
+        var table = document.getElementById("tableId");
+        tr = table.rows[updateRowIndex];
+        var p = document.getElementById("title");
+        tr.cells[1].innerHTML = p.value;
+
+        p = document.getElementById("digest");
+        tr.cells[2].innerHTML = p.value;
+
+        p = document.getElementById("author");
+        tr.cells[3].innerHTML = p.value;
+
+        p = document.getElementById("select");
+        var index_ = p.selectedIndex;
+        var option = p.options[index_];
+        var selectName = option.text;
+        tr.cells[4].innerHTML = selectName;
+
+        document.getElementById("title").value  = '';
+        document.getElementById("digest").value = '';
+        document.getElementById("author").value = '';
+        document.getElementById("select").options[0].selected = 'true';
+
+        var upload = document.getElementById("upload");
+        upload.style.display="none";
+    }
+
+
+    function insertRow(){
+        switch(optionFlag){
+            case 0:
+                save();
+                break;
+            case 1:
+                update_save();
+                break;
+            default :
+                alert("失败")
+        }
+    }
+//点击删除按钮，删除整行
+    function del(row){
+        var table = document.getElementById("tableId");
+        table.deleteRow(row.rowIndex)
+    }
+</script>
