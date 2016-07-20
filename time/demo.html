@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+开始时间：<input type="text" id="sDate" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/>
+结束时间：<input type="text" id="eDate" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/>
+<input type="text" id="res"/>
+<input type="button" value="计算时间" id="btn">
+</body>
+</html>
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="laydate/laydate/laydate.js"></script>
+<script>
+    $("#btn").bind("click",function(){
+        var sDate = $("#sDate")[0].value;
+        var eDate = $("#eDate")[0].value;
+
+        function time_difference(dateStr){
+            var newstr= dateStr.replace(/-/g,'/');
+            var date = new Date(newstr);
+            var time_str = date.getTime().toString();
+            return time_str;
+        }
+        function get_day(times){
+            if (times < 0){
+                return '日期无效';
+            }
+            var t ='';
+            var hour = times /3600/1000;
+            if(hour >=24){
+                t = hour /24;
+                t = t.toFixed(1)+' 天 ';
+            }else{
+                t = hour.toFixed(1)+' 小时 ';
+            }
+            return t;
+        }
+
+        function getPreDay(d){
+            d = new Date(d);
+            d = +d + 1000*24*3600;
+            d = new Date(d);
+            return d.getFullYear()+ '/'+ (d.getMonth()+1)+'/'+ d.getDate();
+        }
+
+        function getNextDay(d){
+            d = new Date(d);
+            d = +d + 1000*24*3600;
+            d = new Date(d);
+            return d.getFullYear()+ '/'+ (d.getMonth()+1)+'/'+ d.getDate();
+        }
+        function weekend(s,e){
+            var sd = s;
+            var se = e;
+            var newstr = sd.replace(/-/g,'/');
+            var sdate= new Date(newstr);
+
+            if(sdate.getDay() ==0 ||sdate.getDay() ==6){
+                sd = time_difference(getNextDay(sd))
+
+            }else{
+                sd = time_difference((sd));
+
+            }
+
+            var newstr = se.replace(/-/g,'/');
+            var edate = new Date(newstr);
+
+            if(edate.getDay()==0 || edate.getDay() ==6){
+                se = time_difference(getPreDay(se))
+
+            }else{
+                se = time_difference(se);
+            }
+
+            sd = parseInt(sd);
+            se = parseInt(se);
+
+            var begin = sd;
+
+            var num = 0;
+            while(se > sd) {
+                sd += 3600 * 24 * 1000
+
+                var tt = new Date(sd) ;
+                if (tt.getDay() ==0 || tt.getDay() ==6){
+                    num++;
+                }
+            }
+            return se - begin - (num*24*3600*1000);
+        }
+      $("#res").val(get_day(weekend(sDate,eDate)));
+
+    })
+
+
+</script>

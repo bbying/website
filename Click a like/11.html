@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<head runat="server">
+    <title></title>
+    <script type="text/javascript">
+        var date1 = new Date(2012, 4, 7, 11, 27);  //开始时间
+        var date2 = new Date(2012, 4, 9, 56, 28);     //结束时间
+        var date3 = date2.getTime() - date1.getTime();   //时间差的毫秒数
+        //计算相差的年数
+        var years = Math.floor(date3 / (12 * 30 * 24 * 3600 * 1000));
+        //计算相差的月数
+        var leave = date3 % (12 * 30 * 24 * 3600 * 1000);
+        var months = Math.floor(leave / (30 * 24 * 3600 * 1000));
+        //计算出相差天数
+        var leave0 = leave % (30 * 24 * 3600 * 1000);
+        var days = Math.floor(leave0 / (24 * 3600 * 1000));
+        //计算出小时数
+        var leave1 = leave0 % (24 * 3600 * 1000);     //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000));
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000);         //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000));
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000);       //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000);
+
+
+        document.write(" 相差 " + years + "年" + months + "月" + days + "天 " + hours + "小时 " + minutes + " 分钟" + seconds + " 秒")
+    </script>
+</head>
+<body>
+<form id="form1" runat="server">
+    <div>
+
+    </div>
+</form>
+</body>
+</html>

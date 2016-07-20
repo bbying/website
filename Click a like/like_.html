@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<title>js点赞效果demo</title>
+<script src="js/jquery-1.7.2.min.js"></script>
+<body>
+
+<a class="zhan" href="#">赞(<span>0</span>)</a>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function(e) {
+        $('a.zhan').click(function(){
+            var left = parseInt($(this).offset().left)+10, top =  parseInt($(this).offset().top)-10, obj=$(this);
+//            console.log(left);
+//            console.log(top);
+            $(this).append('<div id="zhan"><b>+1</b></div>');
+            $('#zhan').css({'position':'absolute','z-index':'1','color':'#C30',
+                'left':left+'px','top':top+'px'});
+            $('#zhan').animate({top:top-20,opacity: 0},1500,
+                    function(){
+                        $(this).fadeOut(1500).remove();
+                        var Num = parseInt(obj.find('span').text());
+                        Num++;
+                        obj.find('span').text(Num);
+                    });
+            return false;
+        });
+    });
+</script>
+

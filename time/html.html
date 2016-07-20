@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<br>
+开始时间：<input type="text" id="sDate" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/>
+结束时间：<input type="text" id="eDate" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/>
+<input type="text" id="res"/>
+<input type="button" value="计算时间" id="btn">
+
+</body>
+</html>
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="laydate/laydate/laydate.js"></script>
+<script>
+    $("#btn").bind("click", function () {
+//   得到起始时间
+        var sDate = $("#sDate")[0].value;
+        var eDate = $("#eDate")[0].value;
+
+        $("#res").val(get_day(get_day_except_weekend(sDate,eDate)));
+
+
+        function get_unix_time(dateStr) {
+            var newstr = dateStr.replace(/-/g, '/');
+            var date = new Date(newstr);
+            var time_str = date.getTime().toString();
+//            return time_str.substr(0, 10);
+
+            return time_str;
+        }
+
+        function get_day(times) {
+            if (times < 0) return '日期无效';
+
+            var t = '';
+            var hour = times / 3600/1000;
+
+            if (hour >= 24) {
+                t = hour / 24;
+                t = t.toFixed(1) + '天';
+            } else {
+                t = hour.toFixed(1) + '小时';
+            }
+
+            return t;
+
+        }
+
+        function   get_day_except_weekend(s,e){
+            //判断起始 和 结束 日期 是否处于 周末
+            var sd=s;
+            var ed=e;
+            var newstr = sd.replace(/-/g, '/');
+            var sdate = new Date(newstr);
+
+            if(sdate.getDay()==0 || sdate.getDay()==6){
+                sd=get_unix_time(getNextDay(sd));
+            }else{
+                sd=get_unix_time(sd);
+            }
+
+            var newstr = ed.replace(/-/g, '/');
+            var edate = new Date(newstr);
+//0 是周日  6是周六
+            if(edate.getDay()==0 || edate.getDay()==6){
+                ed=get_unix_time(getPreDay(ed));
+
+            }else{
+                ed=get_unix_time(ed);
+            }
+//            console.log(date.getDay());
+//            var time_str = date.getTime().toString();
+            //计算中间隔了几天，从这些天中计算出 有几天假期
+            sd=parseInt(sd);
+            ed=parseInt(ed);
+
+            var begin=sd;
+
+            var num=0;
+            while(sd<ed){
+                sd+=3600*24*1000;
+
+                var tt=new Date(sd);
+
+                if(tt.getDay()==0 || tt.getDay()==6){
+                    num++;
+                }
+            }
+
+            return ed-begin-(num*24*3600*1000);
+        }
+
+        function getNextDay(d){
+            d = new Date(d);
+            d = +d + 1000*60*60*24;
+            d = new Date(d);
+            return d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate();
+
+        }
+
+        function getPreDay(d){
+            d = new Date(d);
+            d = +d - 1000*60*60*24;
+            d = new Date(d);
+            return d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate();
+        }
+
+
+    })
+</script>

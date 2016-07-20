@@ -1,0 +1,29 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<title>js点赞效果++和--demo</title>
+<style>
+    a{text-decoration:none;  /* 去掉下划线 */}
+</style>
+<script src="js/jquery-1.7.2.min.js"></script>
+<body>
+<br>
+<a href="javascript:void(0)" onclick="numAddSub(false)" >---</a>
+<input type="text" readonly id="mum" value="1"/>
+<a href="javascript:void(0)" onclick="numAddSub(true)" >+++</a>
+<body>
+<html>
+<script>
+    function numAddSub(add){
+        var temp = +($("#mum").val());
+        if(add){
+            $("#mum").val(++temp);
+        }else{
+            temp = temp || 1
+            temp = temp==1?2:temp;  //最小值为1  
+            $("#mum").val(--temp);
+        }
+    }
+</script>  
+
